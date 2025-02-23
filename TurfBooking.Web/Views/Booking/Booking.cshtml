@@ -1,0 +1,41 @@
+﻿@model List<TurfBooking.BusinessLayer.Model.BookingResponse>
+@{
+    ViewData["Title"] = "Booking";
+}
+
+<h1>Booking</h1>
+
+<table border="1">
+    <tr>
+        <th>Booking ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Turf ID</th>
+        <th>Phone Number</th>
+        <th>User ID</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Booking Date</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var booking in Model)
+    {
+    <tr>
+    <td>@booking.BookingId</td>
+    <td>@booking.Name</td>
+    <td>@booking.Email</td>
+    <td>@booking.TurfId</td>
+    <td>@booking.PhoneNumber</td>
+    <td>@booking.UserId</td>
+    <td>@booking.StartTime</td>
+    <td>@booking.EndTime</td>
+    <td>@booking.BookingDate</td>
+    <td>@(booking.Status ? "Confirmed" : "Pending")</td>
+            <td><a asp-controller="Booking" asp-action="Update">Edit</a></td>
+            <td><a asp-controller="Booking" asp-action="GetById">View</a></td>
+    </tr>
+    }
+</table>
+
+

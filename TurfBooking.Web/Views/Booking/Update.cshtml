@@ -1,0 +1,46 @@
+﻿@model TurfBooking.BusinessLayer.Model.Booking
+
+@{
+    ViewData["Title"] = "Update Booking";
+}
+
+<h1 class="mb-4">Update Booking</h1>
+
+<form class="form-control p-4" method="post">
+    <div class="mb-3">
+        <label class="form-label">Booking ID</label>
+        <input type="number" class="form-control" asp-for="BookingId" readonly />
+    </div>
+    @*
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" asp-for="Email" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input type="text" class="form-control" asp-for="PhoneNumber" required />
+    </div>*@
+
+    <div class="mb-3">
+        <label class="form-label">Booking Date</label>
+        <input type="date" class="form-control" asp-for="BookingDate" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Start Time</label>
+        <input type="time" class="form-control" asp-for="StartTime" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">End Time</label>
+        <input type="time" class="form-control" asp-for="EndTime" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
