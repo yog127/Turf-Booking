@@ -124,5 +124,41 @@ namespace TurfBooking.DataAccessLayer.Repository
 
             return result;
         }
+
+        public User GetByEmail(string email)
+        {
+            string connectionString = "Server=localhost;Database=TurfBooking;Integrated Security=True;TrustServerCertificate=True;";
+            SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("GetUserByEmail", conn);
+            cmd.Parameters.AddWithValue("@Email", email);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            var user = new User();
+
+            while (reader.Read())
+            {
+                user.UserId = Convert.ToInt32(reader["UserId"]);
+                user.Name = Convert.ToString(reader["Name"]);
+                user.Email = Convert.ToString(reader["Email"]);
+                user.PhoneNumber = Convert.ToDouble(reader["PhoneNumber"]);
+                user.Password = Convert.ToString(reader["Password"]);
+            }
+
+            if(user.UserId == 0)
+            {
+                return null;
+            }
+            conn.Close();
+            return user;
+        }
+
+        public List<Booking> GetUserBookingsById(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

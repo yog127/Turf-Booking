@@ -11,7 +11,6 @@ namespace TurfBooking.BusinessLayer.Model
     {
         [Key]
         public int TurfId { get; set; }
-
         public string Location { get; set; }
         public bool Availability { get; set; }
     }

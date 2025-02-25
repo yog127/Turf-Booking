@@ -12,10 +12,6 @@ namespace TurfBooking.Web.Controllers
         {
             _bookingRepository = bookingRepository;
         }
-        public IActionResult HomePage()
-        {
-            return View();
-        }
         public IActionResult Booking()
         {
             List<Booking> bookings = _bookingRepository.GetAllBooking();

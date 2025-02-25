@@ -1,0 +1,136 @@
+﻿@model List<TurfBooking.BusinessLayer.Model.Turf>;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+        background: url('https://images.pexels.com/photos/39362/the-ball-stadion-football-the-pitch-39362.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center fixed;
+        background-size: cover;
+        }
+
+        .navbar {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 15px 0;
+        }
+
+        .navbar-brand, .nav-link {
+        color: white !important;
+        font-size: 18px;
+        }
+
+        .container-content {
+        margin-top: 8%;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    @if (TempData["Message"] != null)
+    {
+        <script>
+            alert("@TempData["Message"]");
+        </script>
+    }
+    @{
+        var userId = Context.Session.GetInt32("UserId");
+    }
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">My Website</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    @if( userId != null)
+                    {
+                        <a class="nav-item nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="My Booking">Booking</a>
+                        <a class="nav-item nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Create">Create</a>
+                        <a class="nav-item nav-link text-dark" asp-area="" asp-controller="User" asp-action="LogOut">LogOut</a>
+                    }else
+                    {
+                        <a class="nav-item nav-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container col-md-6 container-content">
+        <h2>Welcome to My Website</h2>
+        <p class="lead">Explore our services and get in touch with us.</p>
+        <button class="btn btn-primary btn-lg mt-3">Get Started</button>
+    </div>
+    <div>
+        @if(Model != null)
+        {
+            foreach(var turf in Model){
+                <div class="col-md-4 mt-2">
+                    <div class="card shadow-lg">
+                        <img src="https://playo.gumlet.io/TURFUPHINJEWADI20210306073643307129/TurfUpHinjewadi1615016789266.jpeg?mode=crop&crop=smart&h=200&width=450&q=75" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Turf Image">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@turf.Location</h5>
+
+                            <p class="card-text">
+                                Availability:
+                                @if (turf.Availability)
+                                {
+                                    <span class="badge bg-success">Available</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Not Available</span>
+                                }
+                            </p>
+
+                            <button class="btn btn-primary" @(turf.Availability ? "" : "disabled")>
+                                <i class="fas fa-calendar-check"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+
+    </div>
+
+
+    <footer>
+        <p>&copy; 2025 My Website. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
