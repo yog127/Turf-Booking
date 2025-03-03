@@ -40,7 +40,6 @@ else
                 <td>@booking.BookingDate</td>
                 <td>@(booking.Status ? "Confirmed" : "Pending")</td>
                 <td>
-                    <a asp-controller="Booking" asp-action="Update" asp-route-id="@booking.BookingId">Edit</a> |
                     <a asp-controller="Booking" asp-action="GetById" asp-route-id="@booking.BookingId">View</a>
                 </td>
             </tr>

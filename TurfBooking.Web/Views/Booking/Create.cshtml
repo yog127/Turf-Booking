@@ -29,7 +29,7 @@
 
     <div class="mb-3">
         <label class="form-label">User ID:</label>
-        <input asp-for="UserId" class="form-control" />
+        <input asp-for="UserId" class="form-control" value="@Context.Session.GetInt32("UserId")" readonly/>
         <span asp-validation-for="UserId" class="text-danger"></span>
     </div>
 

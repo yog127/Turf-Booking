@@ -31,7 +31,7 @@ namespace TurfBooking.DataAccessLayer.Repository
             cmd.Parameters.AddWithValue("@EndTime", booking.EndTime.ToTimeSpan()); 
 
             cmd.Parameters.AddWithValue("@TurfId", 1);
-            cmd.Parameters.AddWithValue("@UserId", 1);
+            cmd.Parameters.AddWithValue("@UserId", booking.UserId);
             cmd.Parameters.AddWithValue("BookingStatus", booking.Status);
             cmd.CommandType = CommandType.StoredProcedure;
             var result = cmd.ExecuteNonQuery();
@@ -126,5 +126,43 @@ namespace TurfBooking.DataAccessLayer.Repository
             return result;
 
         }
+        public List<Booking> GetBookingsByUserId(int userId)
+        {
+            List<Booking> bookings = new List<Booking>();
+            string connectionString = "Server=localhost;Database=TurfBooking;Integrated Security=True;TrustServerCertificate=True;";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Booking WHERE UserId = @UserId";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    bookings.Add(new Booking
+                    {
+                        BookingId = Convert.ToInt32(reader["BookingId"]),
+                        Name = reader["Name"].ToString(),
+                        Email = reader["Email"].ToString(),
+                        TurfId = Convert.ToInt32(reader["TurfId"]),
+                        UserId = Convert.ToInt32(reader["UserId"]),
+                        PhoneNumber = Convert.ToDouble(reader["PhoneNumber"]),
+                        StartTime = TimeOnly.FromTimeSpan((TimeSpan)reader["StartTime"]),
+                        EndTime = TimeOnly.FromTimeSpan((TimeSpan)reader["EndTime"]),
+                        BookingDate = DateOnly.FromDateTime(Convert.ToDateTime(reader["BookingDate"])),
+                        Status = Convert.ToBoolean(reader["Status"]) 
+                    });
+                }
+
+                reader.Close();
+            }
+
+            return bookings;
+        }
+
+
     }
 }

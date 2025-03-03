@@ -12,9 +12,22 @@ namespace TurfBooking.Web.Controllers
         {
             _bookingRepository = bookingRepository;
         }
+        
         public IActionResult Booking()
         {
-            List<Booking> bookings = _bookingRepository.GetAllBooking();
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            Console.WriteLine("UserId: " + userId);
+
+            if (userId == null)
+            {
+                TempData["Message"] = "You must be logged in to view bookings.";
+                return RedirectToAction("Login", "User");
+            }
+
+            List<Booking> bookings = _bookingRepository.GetBookingsByUserId(userId.Value);
+
+            Console.WriteLine("Total Bookings: " + bookings.Count);
+
             List<BookingResponse> bookingResponses = bookings.Select(b => new BookingResponse
             {
                 BookingId = b.BookingId,
@@ -28,12 +41,21 @@ namespace TurfBooking.Web.Controllers
                 BookingDate = b.BookingDate,
                 Status = b.Status
             }).ToList();
+
             return View(bookingResponses);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                TempData["Message"] = "You must be logged in to book a turf.";
+                return RedirectToAction("Login", "User");
+            }
+
             return View();
+
         }
         [HttpPost]
         public IActionResult Create(Booking booking)

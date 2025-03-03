@@ -15,6 +15,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITurfRepository, TurfRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

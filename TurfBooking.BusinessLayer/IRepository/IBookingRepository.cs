@@ -13,6 +13,8 @@ namespace TurfBooking.BusinessLayer.IRepository
         public int Update(Booking booking);
         public void Delete(int bookingId);
         public List<Booking> GetAllBooking();
+        public List<Booking> GetBookingsByUserId(int userId);
+
 
     }
 }
