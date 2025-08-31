@@ -1,15 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Data;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TurfBooking.BusinessLayer.IRepository;
 using TurfBooking.BusinessLayer.Model;
-using TurfBooking.DataAccessLayer.DatabaseConnections;
 
 namespace TurfBooking.DataAccessLayer.Repository
 {
